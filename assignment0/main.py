@@ -74,14 +74,14 @@ def summarize_data(db_path):
 # Main function
 def main(url):
     # Download data
-    pdf_path = "./docs/incident_report.pdf"
+    pdf_path = "docs/incident_report.pdf"
     download_pdf(url)
 
     # Extract data
     incidents = extract_incidents(pdf_path)
 
     # Create a new database
-    db_path = "./normanpd.db"
+    db_path = "resources/normanpd.db"
     create_db(db_path)
 
     # Insert data into the database
