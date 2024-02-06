@@ -81,7 +81,7 @@ def main(url):
     incidents = extract_incidents(pdf_path)
 
     # Create a new database
-    db_path = "../resources/normanpd.db"
+    db_path = "./resources/normanpd.db"
     create_db(db_path)
 
     # Insert data into the database
