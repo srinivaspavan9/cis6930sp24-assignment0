@@ -23,6 +23,7 @@ def create_db(db_path):
 def insert_incidents(db_path, incidents):
     conn = sqlite3.connect(db_path)
     cur = conn.cursor()
+    cur.execute("DELETE FROM incidents")
     for incident in incidents:
         query = f"INSERT INTO incidents (date_time, incident_number, location, nature, incident_ori) " \
                 f"VALUES ('{incident[0]}', '{incident[1]}', '{incident[2]}', '{incident[3]}', '{incident[4]}')"
@@ -132,6 +133,15 @@ def summarize_data(db_path):
     # Print empty natures at the end
     for row in empty_rows:
         print(f"|{row[1]}")
+    conn.close()
+
+def print_database(db_path):
+    conn = sqlite3.connect(db_path)
+    cur = conn.cursor()
+    cur.execute("SELECT * FROM incidents")
+    rows = cur.fetchall()
+    for row in rows:
+        print(row)
     conn.close()
 
 # Main function
