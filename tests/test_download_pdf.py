@@ -1,7 +1,7 @@
 # test_download_pdf.py
 import os
 import requests
-from assignment0 import download_pdf
+from assignment0.main import download_pdf
 
 def test_download_pdf(tmpdir):
     # Replace with a valid URL to test
