@@ -107,17 +107,32 @@ def extract_incidents(pdf_path):
 
 # Status function 
 def summarize_data(db_path):
+    # conn = sqlite3.connect(db_path)
+    # cur = conn.cursor()
+    # cur.execute('''SELECT nature, COUNT(*) as count 
+    #                FROM incidents 
+    #                GROUP BY nature 
+    #                ORDER BY count DESC, nature''')
+    # rows = cur.fetchall()
+    # for row in rows:
+    #     print(f"{row[0]}|{row[1]}")
+    # conn.close()
     conn = sqlite3.connect(db_path)
     cur = conn.cursor()
-    cur.execute('''SELECT nature, COUNT(*) as count 
-                   FROM incidents 
-                   GROUP BY nature 
-                   ORDER BY count DESC, nature''')
+    # Select non-empty natures
+    cur.execute('''SELECT nature, COUNT(*) as count FROM incidents WHERE nature != '' GROUP BY nature ORDER BY count DESC, nature''')
     rows = cur.fetchall()
+    # Select empty natures
+    cur.execute('''SELECT nature, COUNT(*) as count FROM incidents WHERE nature = '' GROUP BY nature''')
+    empty_rows = cur.fetchall()
+    
+    # Print non-empty natures
     for row in rows:
         print(f"{row[0]}|{row[1]}")
+    # Print empty natures at the end
+    for row in empty_rows:
+        print(f"|{row[1]}")
     conn.close()
-
 
 # Main function
 def main(url):
