@@ -32,29 +32,30 @@ pipenv run python assignment0/main.py --incidents <URL>
 ### `extract_incidents()`
 - **Process:** function, we tackle the challenge of extracting information from complex PDF files containing incident reports. Here's how we do it:
 
-Scanning Pages: We start by scanning each page of the PDF to locate the tables containing incident data.
+     **Scanning Pages**: We start by scanning each page of the PDF to locate the tables containing incident data.
 
-Identifying Structure: Once we find a table, we analyze its structure to understand how the data is organized. This involves looking for patterns or clues that indicate where each piece of information is located.
+     **Identifying Structure**: Once we find a table, we analyze its structure to understand how the data is organized. This involves looking for patterns or clues that indicate where each piece of information is located.
 
-Adaptive Parsing: Instead of using rigid rules or patterns (like regex), we adopt an adaptive approach. This means we dynamically adjust our parsing strategy based on what we see in each table. We don't assume that the data will always be in the same format; instead, we adapt to the specific layout of each table.
+     **Adaptive Parsing**: Instead of using rigid rules or patterns (like regex), we adopt an adaptive approach. This means we dynamically adjust our parsing strategy based on what we see in each table. We don't assume that the data will           always be in the same format; instead, we adapt to the specific layout of each table.
 
-Line-by-Line Analysis: We carefully analyze each line of text in the table, looking for clues about which column it belongs to. For example, we might look for keywords or patterns that indicate the start of a new column.
+     **Line-by-Line Analysis**: We carefully analyze each line of text in the table, looking for clues about which column it belongs to. For example, we might look for keywords or patterns that indicate the start of a new column.
+   
+     **Column Identification**: By analyzing the position and content of each line, we determine which column each piece of information belongs to. This allows us to accurately separate the data into the correct categories, such as                 date/time, incident number, location, nature of the incident, and incident ORI.
 
-Column Identification: By analyzing the position and content of each line, we determine which column each piece of information belongs to. This allows us to accurately separate the data into the correct categories, such as date/time, incident number, location, nature of the incident, and incident ORI.
-
-Structured Output: Once we've processed all the lines in the table, we organize the extracted data into a structured format. This typically involves creating a list of lists, where each inner list represents one incident and contains the relevant information in the correct order..
+     **Structured Output**: Once we've processed all the lines in the table, we organize the extracted data into a structured format. This typically involves creating a list of lists, where each inner list represents one incident and                contains the relevant information in the correct order..
 - **Return:** Organizes data into a list of lists, each representing an incident.
 
 ### `insert_incidents()`
 - **Process:**  function, we take the structured incident data extracted from the extract_incidents() function and insert it into the incidents table of our SQLite database. Here's how we do it:
 
-Structured Data Input: We receive structured incident data in the form of a list of lists, where each inner list represents one incident and contains the relevant information in the correct order.
+     **Structured Data Input:** We receive structured incident data in the form of a list of lists, where each inner list represents one incident and contains the relevant information in the correct order.
 
-Database Insertion: We iterate through each incident in the structured data and insert it into the incidents table of our SQLite database. This involves mapping each piece of extracted information to the corresponding column in the database table.
+     **Database Insertion:** We iterate through each incident in the structured data and insert it into the incidents table of our SQLite database. This involves mapping each piece of extracted information to the corresponding column in 
+     the database table.
 
-Data Integrity: By mapping the data fields to the correct columns, we ensure data integrity and consistency within our database. This allows for easy retrieval and analysis of the incident data later on.
+     **Data Integrity:** By mapping the data fields to the correct columns, we ensure data integrity and consistency within our database. This allows for easy retrieval and analysis of the incident data later on.
 
-Efficient Storage: The structured approach to data insertion ensures efficient storage of incident information in our database. This organized approach facilitates quick access to the data for subsequent analysis and reporting.
+     **Efficient Storage:** The structured approach to data insertion ensures efficient storage of incident information in our database. This organized approach facilitates quick access to the data for subsequent analysis and reporting.
 - **Return:** Data is stored; returns nothing.
 
 ### `summarize_data()`
