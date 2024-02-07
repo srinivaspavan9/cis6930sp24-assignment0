@@ -22,20 +22,39 @@ pipenv run python assignment0/main.py --incidents <URL>
 ## Project Functions
 
 ### `create_db()`
-- **Purpose:** Initializes the SQLite database, creating an `incidents` table.
-- **Process:** Sets up the database schema for storing extracted data.
+- **Purpose:** function initializes the SQLite database and sets up the table structure necessary for storing the extracted data. It specifically creates a table named incidents with columns designed to hold data about the date and time of the incident, incident number, location, nature of the incident, and the incident ORI. This function lays the foundation for data storage, ensuring a structured format is in place for the incoming parsed data from incident reports.
 
 ### `download_pdf(url)`
 - **Parameters:** `url` - The URL for downloading incident PDFs.
-- **Process:** Ensures the directory exists for storing PDFs, then downloads the file.
+- **Process:** function actively engages with a specified URL to fetch and download incident report PDFs. Upon receiving the URL, it first verifies or creates a designated directory for storing these PDFs. If the directory doesn't exist, the function takes the initiative to create it, ensuring a structured file storage system. It then proceeds to download the PDF file from the provided URL, saving it within the established directory. This methodical approach ensures that all necessary documents are readily available for the subsequent parsing process.
 - **Return:** Saves the PDF to a local path; returns nothing.
 
 ### `extract_incidents()`
-- **Process:** Identifies and extracts data from PDF tables using an adaptive strategy.
+- **Process:** function, we tackle the challenge of extracting information from complex PDF files containing incident reports. Here's how we do it:
+
+Scanning Pages: We start by scanning each page of the PDF to locate the tables containing incident data.
+
+Identifying Structure: Once we find a table, we analyze its structure to understand how the data is organized. This involves looking for patterns or clues that indicate where each piece of information is located.
+
+Adaptive Parsing: Instead of using rigid rules or patterns (like regex), we adopt an adaptive approach. This means we dynamically adjust our parsing strategy based on what we see in each table. We don't assume that the data will always be in the same format; instead, we adapt to the specific layout of each table.
+
+Line-by-Line Analysis: We carefully analyze each line of text in the table, looking for clues about which column it belongs to. For example, we might look for keywords or patterns that indicate the start of a new column.
+
+Column Identification: By analyzing the position and content of each line, we determine which column each piece of information belongs to. This allows us to accurately separate the data into the correct categories, such as date/time, incident number, location, nature of the incident, and incident ORI.
+
+Structured Output: Once we've processed all the lines in the table, we organize the extracted data into a structured format. This typically involves creating a list of lists, where each inner list represents one incident and contains the relevant information in the correct order..
 - **Return:** Organizes data into a list of lists, each representing an incident.
 
 ### `insert_incidents()`
-- **Process:** Inserts data from `extract_incidents()` into the database.
+- **Process:**  function, we take the structured incident data extracted from the extract_incidents() function and insert it into the incidents table of our SQLite database. Here's how we do it:
+
+Structured Data Input: We receive structured incident data in the form of a list of lists, where each inner list represents one incident and contains the relevant information in the correct order.
+
+Database Insertion: We iterate through each incident in the structured data and insert it into the incidents table of our SQLite database. This involves mapping each piece of extracted information to the corresponding column in the database table.
+
+Data Integrity: By mapping the data fields to the correct columns, we ensure data integrity and consistency within our database. This allows for easy retrieval and analysis of the incident data later on.
+
+Efficient Storage: The structured approach to data insertion ensures efficient storage of incident information in our database. This organized approach facilitates quick access to the data for subsequent analysis and reporting.
 - **Return:** Data is stored; returns nothing.
 
 ### `summarize_data()`
