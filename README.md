@@ -17,7 +17,7 @@ This project automates the extraction and organization of incident report data f
 Execute the project with the following command:
 ```bash
 pipenv run python assignment0/main.py --incidents <URL>
-
+```
 
 ## Project Functions
 
