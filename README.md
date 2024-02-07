@@ -64,6 +64,9 @@ pipenv run python assignment0/main.py --incidents <URL>
 
 **Note:** This project uses an adaptive PDF parsing approach, enhancing flexibility and efficiency. No demo is currently available.
 
+### How i tested the code 
+- **Process:** To thoroughly test all the functions locally, I meticulously created a comprehensive testing environment within the project directory. Firstly, I established temporary folders to emulate the download directory structure where incident PDFs would typically be stored. Within these folders, I strategically placed a variety of pre-downloaded PDF files, each representing different types of incident reports. This step ensured that the project could handle diverse scenarios and data formats effectively. Subsequently, I executed each function individually using the mock data from the PDFs to verify their behavior and functionality. Specifically, I validated the download_pdf() function by providing it with local file paths instead of URLs, ensuring that it correctly retrieved and saved the PDF files. Additionally, I systematically tested the extract_incidents() and insert_incidents() functions to confirm their ability to parse and insert data accurately into the SQLite database. Finally, I executed the summarize_data() function to generate summaries of the incidents stored in the database and cross-checked them with the expected results. This rigorous testing approach facilitated the identification of any potential issues or discrepancies, ensuring the robustness and reliability of all project functions.
+
 ## How to Use
 - **Setup:** Follow installation instructions to prepare the environment.
 - **Execution:** Use the command with the specific URL to process incident reports.
