@@ -21,15 +21,28 @@ def create_db(db_path):
     conn.close()
 
 def insert_incidents(db_path, incidents):
+    # conn = sqlite3.connect(db_path)
+    # cur = conn.cursor()
+    # cur.execute("DELETE FROM incidents")
+    # for incident in incidents:
+    #     query = f"INSERT INTO incidents (date_time, incident_number, location, nature, incident_ori) " \
+    #             f"VALUES ('{incident[0]}', '{incident[1]}', '{incident[2]}', '{incident[3]}', '{incident[4]}')"
+    #     cur.execute(query)
+    # conn.commit()
+    # conn.close()
     conn = sqlite3.connect(db_path)
     cur = conn.cursor()
     cur.execute("DELETE FROM incidents")
     for incident in incidents:
-        query = f"INSERT INTO incidents (date_time, incident_number, location, nature, incident_ori) " \
-                f"VALUES ('{incident[0]}', '{incident[1]}', '{incident[2]}', '{incident[3]}', '{incident[4]}')"
-        cur.execute(query)
+        # Check if only one field is non-empty
+        non_empty_fields = sum(1 for field in incident if field.strip())
+        if non_empty_fields != 1:
+            query = f"INSERT INTO incidents (date_time, incident_number, location, nature, incident_ori) " \
+                    f"VALUES ('{incident[0]}', '{incident[1]}', '{incident[2]}', '{incident[3]}', '{incident[4]}')"
+            cur.execute(query)
     conn.commit()
     conn.close()
+
 
 # Download function
 def download_pdf(url):
